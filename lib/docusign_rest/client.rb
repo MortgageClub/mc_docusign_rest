@@ -1046,6 +1046,8 @@ module DocusignRest
       http = initialize_net_http_ssl(uri)
       request = Net::HTTP::Get.new(uri.request_uri, headers(content_type))
       response = http.request(request)
+
+      return false if response.code != "200"
       return response.body if options[:return_stream]
 
       split_path = options[:local_save_path].split('/')
